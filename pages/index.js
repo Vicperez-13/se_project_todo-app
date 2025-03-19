@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "https://jspm.dev/uuid";
+import FormValidator from "../components/FormValidator.js";
 import { initialTodos, validationConfig } from "../utils/constants.js";
 import Todo from "../components/Todo.js";
 
@@ -5,15 +7,16 @@ const addTodoButton = document.querySelector(".button_action_add");
 const addTodoPopup = document.querySelector("#add-todo-popup");
 const addTodoForm = addTodoPopup.querySelector(".popup__form");
 const addTodoCloseBtn = addTodoPopup.querySelector(".popup__close");
-// const todoTemplate = document.querySelector("#todo-template"); > remove
 const todosList = document.querySelector(".todos__list");
 
 const openModal = (modal) => {
   modal.classList.add("popup_visible");
+  document.addEventListener("keydown", handleEscClose);
 };
 
 const closeModal = (modal) => {
   modal.classList.remove("popup_visible");
+  document.removeEventListener("keydown", handleEscClose);
 };
 
 // The logic in this function should all be handled in the Todo class.
@@ -22,11 +25,6 @@ const generateTodo = (data) => {
   const todoElement = todo.getView();
   return todoElement;
 
-  // // Apply id and for attributes.
-  // // The id will initially be undefined for new todos.
-
-  // // If a due date has been set, parsing this it with `new Date` will return a
-  // // number. If so, we display a string version of the due date in the todo.
   // const dueDate = new Date(data.date);
   // if (!isNaN(dueDate)) {
   //   todoDate.textContent = `Due: ${dueDate.toLocaleString("en-US", {
@@ -40,6 +38,17 @@ const generateTodo = (data) => {
   //   todoElement.remove();
   // });
 };
+const formValidator = new FormValidator(validationConfig, addTodoForm);
+formValidator.enableValidation();
+
+function handleEscClose(evt) {
+  if (evt.key === "Escape") {
+    const openedPopup = document.querySelector(".popup_visible");
+    if (openedPopup) {
+      closeModal(openedPopup);
+    }
+  }
+}
 
 addTodoButton.addEventListener("click", () => {
   openModal(addTodoPopup);
@@ -58,9 +67,11 @@ addTodoForm.addEventListener("submit", (evt) => {
   const date = new Date(dateInput);
   date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
 
-  const values = { name, date };
+  const values = { id: uuidv4(), name, date };
   const todo = generateTodo(values);
   todosList.append(todo);
+  formValidator.resetValidation();
+  evt.target.reset();
   closeModal(addTodoPopup);
 });
 
