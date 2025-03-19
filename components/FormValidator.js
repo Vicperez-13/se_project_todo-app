@@ -1,11 +1,11 @@
 class FormValidator {
-  constructor(settings, formEl) {
+  constructor(settings, _formEl) {
     this._inputSelector = settings.inputSelector;
     this._submitButtonSelector = settings.submitButtonSelector;
     this._errorClass = settings.errorClass;
     this._inputErrorClass = settings.inputErrorClass;
     this._inactiveButtonClass = settings.inactiveButtonClass;
-    this._formEL = formEl;
+    this._formEL = _formEl;
   }
 
   _showInputError(inputElement, errorMessage) {
