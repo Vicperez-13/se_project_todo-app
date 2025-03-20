@@ -10,7 +10,7 @@ class FormValidator {
 
   _showInputError(inputElement, errorMessage) {
     const errorElement = this._formEL.querySelector(
-      `.${inputElement.id}-error`
+      `#${inputElement.id}-error`
     );
     inputElement.classList.add(this._inputErrorClass);
     errorElement.textContent = errorMessage;
@@ -19,7 +19,7 @@ class FormValidator {
 
   _hideInputError(inputElement) {
     const errorElement = this._formEL.querySelector(
-      `.${inputElement.id}-error`
+      `#${inputElement.id}-error`
     );
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.classList.remove(this._errorClass);
