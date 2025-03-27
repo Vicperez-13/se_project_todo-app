@@ -38,10 +38,6 @@ formValidator.enableValidation();
 
 function handleEscClose(evt) {
   if (evt.key === "Escape") {
-    const openedPopup = document.querySelector(".popup_visible");
-    if (openedPopup) {
-      closeModal(openedPopup);
-    }
   }
 }
 
@@ -58,7 +54,6 @@ addTodoForm.addEventListener("submit", (evt) => {
   const name = evt.target.name.value;
   const dateInput = evt.target.date.value;
 
-  // Create a date object and adjust for timezone
   const date = new Date(dateInput);
   date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
 
