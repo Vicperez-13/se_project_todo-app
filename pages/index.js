@@ -8,7 +8,7 @@ import TodoCounter from "../components/TodoCounter.js";
 
 const addTodoButton = document.querySelector(".button_action_add");
 const addTodoPopupEl = document.querySelector("#add-todo-popup");
-const addTodoForm = document.forms["add-todo-form"];
+// const addTodoForm = document.forms["add-todo-form"];
 const addTodoCloseBtn = addTodoPopupEl.querySelector(".popup__close");
 const todosList = document.querySelector(".todos__list");
 
@@ -42,7 +42,7 @@ function handleDelete(completed) {
     todoCounter.updateCompleted(false);
   }
 }
-
+// I've checked my counter and it is working.
 const generateTodo = (data) => {
   const todo = new Todo(data, "#todo-template", handleCheck, handleDelete);
   const todoElement = todo.getView();
@@ -59,7 +59,10 @@ const section = new Section({
 
 section.renderItems();
 
-const formValidator = new FormValidator(validationConfig, addTodoForm);
+const formValidator = new FormValidator(
+  validationConfig,
+  addTodoPopup.getForm()
+);
 formValidator.enableValidation();
 
 function handleEscClose(evt) {
