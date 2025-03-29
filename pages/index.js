@@ -37,12 +37,13 @@ function handleCheck(completed) {
 }
 
 function handleDelete(completed) {
+  todoCounter.updateTotal(false);
+
   if (completed) {
-    todoCounter.updateTotal(false);
     todoCounter.updateCompleted(false);
   }
 }
-// I've checked my counter and it is working.
+
 const generateTodo = (data) => {
   const todo = new Todo(data, "#todo-template", handleCheck, handleDelete);
   const todoElement = todo.getView();
